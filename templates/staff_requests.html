@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requests</title>
+    <link rel="stylesheet" href="/static/css/staffreq.css">
+</head>
+<body>
+    <header>
+        <img src="/static/images/cropped_round_logo.png" alt="School Logo" class="logo">
+        <h1>Staff Dashboard</h1>
+        <div class="user-info">
+            <img src="/static/images/cropped_round_logo.png" alt="Admin Icon">
+            <span>Welcome, Staff Member</span>
+            <button class="logout-btn" onclick="window.location.href='login.html'">Logout</button>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#requests">View Requests</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="requests">
+            <h1>Requests</h1>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Name</th>
+                    <th>Document Type</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request[0] }}</td>
+                    <td>{{ request[1] }}</td>
+                    <td>{{ request[2] }}</td>
+                    <td>{{ request[3] }}</td>
+                    <td class="actions">
+                        <form action="/generate_document/{{ request[0] }}" method="GET">
+                            <button type="submit">Generate Document</button>
+                        </form>
+                        <form action="/deliver_document/{{ request[0] }}" method="POST">
+                            <button type="submit">Deliver Document</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button class="go-back" onclick="window.location.href='staff_dashboard.html'">Go Back to Menu</button>
+        </section>
+    </main>
+</body>
+</html>

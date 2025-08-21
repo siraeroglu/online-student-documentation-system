@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/cropped_round_logo.png') }}" alt="School Logo" class="logo">
+        <h1>Admin Dashboard</h1>
+        <div class="user-info">
+            <img src="{{ url_for('static', filename='images/cropped_round_logo.png') }}" alt="Admin Icon">
+            <span>Welcome, Admin</span>
+            <button class="logout-btn" onclick="window.location.href='login.html'">Logout</button>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#add-user" onclick="showSection('add-user')">Add User</a></li>
+            <li><a href="#update-des-key" onclick="showSection('update-des-key')">Update DES Key</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="add-user" class="active">
+            <h2>Add User</h2>
+            <form action="/add_user" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <select name="role">
+                    <option value="staff">Staff</option>
+                    <option value="student">Student</option>
+                </select>
+                <button type="submit">Add</button>
+            </form>
+        </section>
+        <section id="update-des-key">
+            <h2>Update DES Key</h2>
+            <form action="/update_des_key" method="POST">
+                <input type="text" name="new_key" placeholder="New DES Key" required>
+                <button type="submit">Update</button>
+            </form>
+        </section>        
+    </main>
+    <script>
+        function showSection(id) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>

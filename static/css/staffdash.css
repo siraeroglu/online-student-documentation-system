@@ -1,0 +1,153 @@
+body {
+    font-family: "Calibri Light", sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #082757;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    transform: translateX(-35px);
+}
+
+.user-info span {
+    margin-left: 10px;
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+.logout-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #0d47a1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #122474;
+}
+
+nav {
+    background-color: #0f3765;
+    color: white;
+    padding: 10px 20px;
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    padding-top: 80px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin-bottom: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px;
+    background-color: #0c5493;
+    border-radius: 5px;
+}
+
+nav ul li a:hover {
+    background-color: #0d47a1;
+}
+
+nav ul li a.active {
+    background-color: #0a3576;
+}
+
+
+main {
+        margin-left: 270px;
+        padding: 100px 20px 20px;
+        background: url('../images/Eastern-Mediterranian-University-North-Cyprus-Students-on-Campus.jpg');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        }
+
+
+section {
+    width: 50%;
+    display: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+section.active {
+    display: block;
+}
+
+section h2 {
+    color: #080f6f;
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, select, button {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #90caf9;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #241b8bd8;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #122474;
+}

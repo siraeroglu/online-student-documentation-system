@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoices</title>
+</head>
+<body>
+    <h2>Invoices</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Invoice ID</th>
+                <th>Request ID</th>
+                <th>Student Name</th>
+                <th>Amount</th>
+                <th>Payment Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice[0] }}</td>
+                <td>{{ invoice[1] }}</td>
+                <td>{{ invoice[2] }}</td>
+                <td>{{ invoice[3] }}</td>
+                <td>{{ invoice[4] }}</td>
+                <td>
+                    {% if invoice[4] == 'paid' %}
+                    <form action="/deliver_document/{{ invoice[1] }}" method="POST">
+                        <button type="submit">Deliver Document</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

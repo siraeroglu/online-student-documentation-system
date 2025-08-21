@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/staffdash.css') }}">
+    <script>
+        function showSection(id) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+
+            const links = document.querySelectorAll('nav ul li a');
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(nav,ul,li,a[href="#${id}"]).classList.add('active');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Staff Dashboard</h1>
+        <div class="user-info">
+            <img src="{{ url_for('static', filename='images/cropped_round_logo.png') }}" alt="School Logo" class="logo">
+            <span>Welcome, Staff Member</span>
+            <button onclick="window.location.href='login.html'" class="logout-button">Logout</button>
+
+
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#update-grades" onclick="showSection('update-grades')">Update Grades</a></li>
+            <li><a href="#manage-requests" onclick="showSection('manage-requests')">Payment Requests</a></li>
+            <li><a href="#deliver-documents" onclick="showSection('deliver-documents')">Student Certificate/Transcript Requests</a></li>
+            <li><a href="#update-keys" onclick="showSection('update-keys')">Update Keys</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="update-grades" class="active">
+            <h2>Update Student Grades</h2>
+            <form action="/update_grades" method="POST">
+                <input type="number" name="student_id" placeholder="Student ID" required>
+                <input type="number" name="gpa" placeholder="GPA" step="0.01" required>
+                <input type="number" name="cgpa" placeholder="CGPA" step="0.01" required>
+                <button type="submit">Update</button>
+            </form>
+        </section>
+
+        <section id="manage-requests">
+            <h2>Manage Document Requests</h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Name</th>
+                    <th>Document Type</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request[0] }}</td>
+                    <td>{{ request[1] }}</td>
+                    <td>{{ request[2] }}</td>
+                    <td>{{ request[3] }}</td>
+                    <td class="actions">
+                        <form action="/generate_document/{{ request[0] }}" method="GET">
+                            <button type="submit">Generate Document</button>
+                        </form>
+                        <form action="/deliver_document/{{ request[0] }}" method="POST">
+                            <button type="submit">Deliver Document</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+
+        <section id="deliver-documents">
+            <h2>Deliver Paid Documents</h2>
+            <form action="/deliver_document/{{ request_id }}" method="POST">
+                <input type="number" name="request_id" placeholder="Request ID" required>
+                <button type="submit">Manage Payment</button>
+            </form>
+        </section>
+        <section id="view-receipts">
+            <h2>View Uploaded Receipts</h2>
+            {% if receipts and receipts|length > 0 %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Student Name</th>
+                        <th>Document Type</th>
+                        <th>Receipt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for receipt in receipts %}
+                    <tr>
+                        <td>{{ receipt[0] }}</td>
+                        <td>{{ receipt[1] }}</td>
+                        <td>{{ receipt[2] }}</td>
+                        <td>
+                            <form action="/view_receipt/{{ receipt[0] }}" method="GET">
+                                <button type="submit">View Receipt</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No receipts available at the moment.</p>
+            {% endif %}
+        </section>
+
+        <section id="update-keys">
+            <h2>Update Keys</h2>
+            <form action="/update_keys" method="POST">
+                <input type="text" name="new_des_key" placeholder="New DES Key" required>
+                <button type="submit">Update Keys</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

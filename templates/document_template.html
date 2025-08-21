@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .document {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        .signature {
+            margin-top: 50px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="document">
+        <h1>{{ document }}</h1>
+        <p>This document is signed and verified.</p>
+        <div class="signature">
+            <p>Signature:</p>
+            <code>{{ signature }}</code>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+body {
+    font-family: "Calibri Light", sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/media_806_3.jpg'); /* Background resmi 'static/images/' altında olmalı */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h2 {
+    text-align: center;
+    color: #122474;
+    margin-bottom: 20px;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto 20px;
+    width: 150px;
+    height: auto;
+}
+
+form {
+    max-width: 350px;
+    width: 90%;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 2px solid rgba(40, 93, 237, 0.56);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+button {
+    width: 50%;
+    padding: 13px;
+    background-color: rgba(18, 36, 116, 0.89);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    display: block;
+    margin: 0 auto;
+}
+
+button:hover {
+    background-color: rgba(12, 35, 181, 0.51);
+}

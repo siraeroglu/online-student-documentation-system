@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/studentreq.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/cropped_round_logo.png') }}" alt="School Logo" class="logo">
+        <h1>Student Dashboard</h1>
+        <div class="user-info">
+            <img src="{{ url_for('static', filename='images/cropped_round_logo.png') }}" alt="Student Icon">
+            <span>Welcome, Student Member</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#request-document" onclick="showSection('request-document')">Request Document</a></li>
+            <li><a href="#view-requests" onclick="showSection('view-requests')">View Requests</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="request-document" class="active">
+            <h2>Request Document</h2>
+            <form action="/request_document" method="POST">
+                <label for="document_type">Document Type:</label>
+                <select name="document_type" id="document_type">
+                    <option value="Transcript">Transcript</option>
+                    <option value="Student Certificate">Student Certificate</option>
+                </select>
+                <button type="submit">Request</button>
+            </form>
+        </section>
+        <section id="view-requests">
+            <h2>Your Document Requests</h2>
+            {% if requests and requests|length > 0 %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Document Type</th>
+                        <th>Status</th>
+                        <th>Invoice Status</th>
+                        <th>Fee</th>
+                        <th>Payment</th>
+                        <th>Document</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in requests %}
+                    <tr>
+                        <td>{{ request[0] }}</td>
+                        <td>{{ request[1] }}</td>
+                        <td>{{ request[2] }}</td>
+                        <td>{{ request[3] }}</td>
+                        <td>{{ request[4] }}</td>
+                        <td>
+                            {% if request[3] == 'unpaid' %}
+                            <form action="/pay_invoice/{{ request[0] }}" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="receipt" required>
+                                <button type="submit">Upload Receipt & Pay</button>
+                            </form>
+                            {% else %}
+                            Paid
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if request[3] == 'paid' %}
+                            <form action="/verify_document/{{ request[0] }}" method="POST">
+                                <button type="submit">Show Document</button>
+                            </form>
+                            {% else %}
+                            Pending
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-requests">There is no document request at the moment.</p>
+            {% endif %}
+        </section>
+    </main>
+    <script>
+        function showSection(id) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>
